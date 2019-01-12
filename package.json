@@ -1,0 +1,20 @@
+{
+  "name": "gnucc",
+  "version": "1.0.0",
+  "description": "Wrapper for GCC and G++",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsc-watch --onSuccess nodemon"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^10.12.18",
+    "chalk": "^2.4.2"
+  },
+  "files": [
+	  "dist/"
+  ]
+}
