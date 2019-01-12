@@ -6,7 +6,7 @@ export interface Result {
 	stdout: string,
 	stderr: string,
 	exitCode: Number
-}
+};
 
 export default function Run(args: string[], log?: boolean): Promise<Result> {
 	let command = args.join(' ');
@@ -38,4 +38,4 @@ export default function Run(args: string[], log?: boolean): Promise<Result> {
 			});
 		});
 	});
-}
+};

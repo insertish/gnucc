@@ -1,2 +1,2 @@
-export { default as GCC } from "./GCC";
-export { default as GPP } from "./G++";
+export { default as gcc } from "./GCC";
+export { default as gpp } from "./G++";

@@ -1,5 +1,6 @@
 import Run, { Result } from '../Runner';
 import { GCCOptions } from '../Options';
+import { ProcessGccOpt } from '../Config';
 
 /**
  * Compiles a source file with GCC
@@ -22,8 +23,8 @@ export default async function gcc(optOrInput: GCCOptions | string, output?: stri
 		args.push(optOrInput);
 		output && args.push('-o', output);
 	} else {
-		// options
+		args.push(...ProcessGccOpt(optOrInput));
 	}
 
 	return await Run(args, log);
-}
+};

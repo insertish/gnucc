@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <iostream>
 
-int main() {
+void doAThing() {
 	std::cout << "Hello, World!\n";
-	return 0;
-}
+};

@@ -59,6 +59,8 @@ export interface CompilerOptions {
 };
 
 export interface ProjectOptions extends CompilerOptions {
+	/** Input file(s) */
+	input: string | string[],
 	/** Output file */
 	output?: string,
 	/** Header directories to be included, -I */
@@ -66,7 +68,7 @@ export interface ProjectOptions extends CompilerOptions {
 	/** Library directories to be included, -L */
 	libraries?: string[],
 	/** Output logs when compiling */
-	log: boolean
+	log?: boolean
 };
 
 export interface GCCOptions extends ProjectOptions {

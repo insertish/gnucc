@@ -1,5 +1,6 @@
 import Run, { Result } from '../Runner';
 import { GPPOptions } from '../Options';
+import { ProcessGppOpt } from '../Config';
 
 /**
  * Compiles a source file with G++
@@ -22,8 +23,8 @@ export default async function gpp(optOrInput: GPPOptions | string, output?: stri
 		args.push(optOrInput);
 		output && args.push('-o', output);
 	} else {
-		// options
+		args.push(...ProcessGppOpt(optOrInput));
 	}
 
 	return await Run(args, log);
-}
+};
