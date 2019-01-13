@@ -217,8 +217,12 @@ export interface CompilerOptions extends PreprocessorOptions {
 };
 
 export interface ProjectOptions extends CompilerOptions {
+	/** Generate object files, keep track of timestamps and compile automatically. [objOut must be set!] */
+	project?: boolean,
 	/** Input file(s) */
 	input: string | string[],
+	/** Objects folder */
+	objOut?: string,
 	/** Output file */
 	output?: string,
 	/** Header directories to be included, -I */

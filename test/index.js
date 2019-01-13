@@ -60,10 +60,26 @@ const glob = require("glob");
 		]
 	});
 
+	console.log('');
+
 	/**
 	 * Or you can let gnucc do this for you
+	 * ? This keeps track of timestamps to only compile required files.
+	 * ? Compiles to .o first to speed up future compile times.
+	 * ? Ensures the correct compilers are used.
 	 */
-	// TODO: Add project management.
+	await gnucc({
+		project: true,
+		input: [
+			'src/example.cc',
+			'src/tester.cc'
+		],
+		objOut: 'out/',
+		output: 'out/projecttest',
+		includes: [
+			'src/headers'
+		]
+	});
 
 	// clean up
 	glob.sync('*.exe').forEach(x => unlinkSync(x));

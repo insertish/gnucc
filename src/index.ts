@@ -1,6 +1,7 @@
 import { gcc, gpp } from './compilers';
 import { GCCOptions, GPPOptions, OPTIMISATION, STAGES, WARN } from './Options';
 import { Result } from './Runner';
+import { resolve, sep } from 'path';
 
 export * from './compilers';
 export {
@@ -35,8 +36,32 @@ export async function gnucc(optOrInput: GCCOptions | GPPOptions | string, output
 				return await gcc(optOrInput, output, log);
 		}
 	} else {
-		ext = Array.isArray(optOrInput.input) ?
-			optOrInput.input[0].split('.').pop() : optOrInput.input.split('.').pop();
+		let inp = optOrInput.input;
+		if (optOrInput.project) {
+			if (!Array.isArray(inp)) throw new Error("Input must be array!");
+			if (!optOrInput.objOut) throw new Error("No output directory for objects!");
+			let objects = inp.map(x => resolve(<string> optOrInput.objOut, x.replace(/\\|\//g, '_') + '.o'));
+			
+			let compiler: Function = gnucc;
+			inp.forEach(x => {
+				let ext = x.split('.').pop() || '';
+				if (['cpp', 'cc'].indexOf(ext) > -1) compiler = gpp;
+			});
+
+			for (let i in inp) {
+				await compiler(Object.assign({}, optOrInput, {
+					input: inp[i],
+					until: STAGES.COMPILE,
+					output: objects[i]
+				}));
+			}
+
+			return await compiler(Object.assign(optOrInput, {
+				input: objects
+			}));
+		}
+		ext = Array.isArray(inp) ?
+			inp[0].split('.').pop() : inp.split('.').pop();
 		switch (ext) {
 			case 'cpp':
 			case 'cc':
