@@ -6,6 +6,7 @@ import chalk from 'chalk';
 import { gcc, gpp } from './compilers';
 import { GCCOptions, GPPOptions, OPTIMISATION, STAGES, WARN } from './Options';
 import { Result } from './Runner';
+import { Resolve, Language } from './Extension';
 
 export * from './compilers';
 export {
@@ -30,12 +31,10 @@ export async function gnucc(opt: GCCOptions | GPPOptions): Promise<Result>;
 export async function gnucc(optOrInput: GCCOptions | GPPOptions | string, output?: string, log: boolean = true) {
 	let ext;
 	if (typeof optOrInput === 'string') {
-		ext = optOrInput.split('.').pop();
-		switch (ext) {
-			case 'cpp':
-			case 'cc':
+		switch (Resolve(optOrInput.split('.').pop())) {
+			case Language["C++"]:
 				return await gpp(optOrInput, output, log);
-			case 'c':
+			case Language["C"]:
 			default:
 				return await gcc(optOrInput, output, log);
 		}
@@ -53,8 +52,8 @@ export async function gnucc(optOrInput: GCCOptions | GPPOptions | string, output
 			
 			let compiler: Function = gnucc;
 			inp.forEach(x => {
-				let ext = x.split('.').pop() || '';
-				if (['cpp', 'cc'].indexOf(ext) > -1) compiler = gpp;
+				let ext = Resolve(x.split('.').pop() || '');
+				if (ext == Language["C++"]) compiler = gpp;
 			});
 
 			for (let i in inp) {
@@ -78,13 +77,12 @@ export async function gnucc(optOrInput: GCCOptions | GPPOptions | string, output
 				input: objects
 			}));
 		}
-		ext = Array.isArray(inp) ?
-			inp[0].split('.').pop() : inp.split('.').pop();
+		ext = Resolve(Array.isArray(inp) ?
+			inp[0].split('.').pop() : inp.split('.').pop());
 		switch (ext) {
-			case 'cpp':
-			case 'cc':
+			case Language["C++"]:
 				return await gpp(<GPPOptions> optOrInput);
-			case 'c':
+			case Language["C"]:
 			default:
 				return await gcc(<GCCOptions> optOrInput);
 		}
