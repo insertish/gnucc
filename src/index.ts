@@ -1,7 +1,13 @@
 import { gcc, gpp } from './compilers';
-import { GCCOptions, GPPOptions } from './Options';
+import { GCCOptions, GPPOptions, OPTIMISATION, STAGES, WARN } from './Options';
 import { Result } from './Runner';
+
 export * from './compilers';
+export {
+	OPTIMISATION as OPTIMISATION,
+	STAGES as STAGES,
+	WARN as WARN
+};
 
 /**
  * Compiles a source file

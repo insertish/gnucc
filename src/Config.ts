@@ -6,9 +6,9 @@ export function ProcessOpt(opts: ProjectOptions): string[] {
 
 	// Compiler
 	opts.optimisation	&& args.push(`-O${opts.optimisation}`);
-	opts.outputAfter	&& args.push(opts.outputAfter);
-	opts.usePipes		&& args.push('-pipe');
+	opts.until			&& args.push(opts.until);
 	opts.warning		&& args.push(...opts.warning.map(x => `-W${x}`));
+	opts.logCompile		&& args.push('-Q');
 
 	// Project
 	opts.input			&& (Array.isArray(opts.input) ? args.push(...opts.input.map(x => resolve(x))) : args.push(resolve(opts.input)));

@@ -1,4 +1,4 @@
-const { gcc, gpp, gnucc } = require('../');
+const { gcc, gpp, gnucc, OPTIMISATION, STAGES, WARN } = require('../');
 const { existsSync, mkdirSync, unlinkSync } = require('fs');
 const glob = require("glob");
 
@@ -21,8 +21,49 @@ const glob = require("glob");
 		output: 'out/head',
 		includes: [
 			'src/headers'
+		],
+		optimisation: OPTIMISATION.HIGH,
+		warning: [WARN.ALL]
+	});
+
+	console.log('');
+
+	/**
+	 * You can also compile files seperately and then link together
+	 */
+	await gpp({
+		input: 'src/example.cc',
+		output: 'out/example.o',
+		includes: [
+			'src/headers'
+		],
+		until: STAGES.COMPILE
+	});
+
+	await gpp({
+		input: 'src/tester.cc',
+		output: 'out/tester.o',
+		includes: [
+			'src/headers'
+		],
+		until: STAGES.COMPILE
+	});
+
+	await gpp({
+		input: [
+			'out/example.o',
+			'out/tester.o'
+		],
+		output: 'out/multitest',
+		includes: [
+			'src/headers'
 		]
 	});
+
+	/**
+	 * Or you can let gnucc do this for you
+	 */
+	// TODO: Add project management.
 
 	// clean up
 	glob.sync('*.exe').forEach(x => unlinkSync(x));
