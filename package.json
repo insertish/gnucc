@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc-watch --onSuccess nodemon"
   },
-  "author": "",
+  "author": "insert",
   "license": "ISC",
   "dependencies": {
     "@types/node": "^10.12.18",
@@ -16,6 +16,22 @@
     "glob": "^7.1.3"
   },
   "files": [
-    "dist/"
+	"dist/",
+	"README.md"
+  ],
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.insrt.uk/insert/gnucc.git"
+  },
+  "keywords": [
+    "gcc",
+    "g++",
+    "c++",
+    "c",
+    "compiler"
   ]
 }

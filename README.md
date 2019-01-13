@@ -8,7 +8,7 @@
 
 ## Quick Start
 
-> This method passes files directly, it is recommended you pass options.
+> This method passes files directly, it is recommended you pass options as shown below.
 
 ```js
 import { gnucc, gcc, gpp } from 'gnucc';
