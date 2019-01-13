@@ -23,7 +23,7 @@ if (program.init) {
 	if (existsSync('gnucc.json')) {
 		let opt = Object.assign(
 			JSON.parse(readFileSync('gnucc.json').toString()),
-			{ project: true }
+			{ project: true, log: true }
 		);
 		gnucc(opt);
 	} else {

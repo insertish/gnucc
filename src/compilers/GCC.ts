@@ -24,6 +24,7 @@ export default async function gcc(optOrInput: GCCOptions | string, output?: stri
 		output && args.push('-o', output);
 	} else {
 		args.push(...ProcessGccOpt(optOrInput));
+		log = optOrInput.log || false;
 	}
 
 	return await Run(args, log);

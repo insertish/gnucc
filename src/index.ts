@@ -1,8 +1,11 @@
+import { resolve } from 'path';
+import { sync as globSync } from 'glob';
+import { existsSync, statSync } from 'fs';
+import chalk from 'chalk';
+
 import { gcc, gpp } from './compilers';
 import { GCCOptions, GPPOptions, OPTIMISATION, STAGES, WARN } from './Options';
 import { Result } from './Runner';
-import { resolve, sep } from 'path';
-import { sync as globSync } from 'glob';
 
 export * from './compilers';
 export {
@@ -55,6 +58,13 @@ export async function gnucc(optOrInput: GCCOptions | GPPOptions | string, output
 			});
 
 			for (let i in inp) {
+				if (existsSync(objects[i])) {
+					let is = statSync(inp[i]).mtimeMs;
+					let os = statSync(objects[i]).mtimeMs;
+					optOrInput.log && console.log(chalk`{gray ~ Skipping ${inp[i]}, object file is newer.}`);
+					if (os > is) continue;
+				}
+
 				await compiler(Object.assign({}, optOrInput, {
 					project: false,
 					input: inp[i],

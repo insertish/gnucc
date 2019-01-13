@@ -1,22 +1,25 @@
 {
   "name": "gnucc",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Wrapper for GCC and G++",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
 	"cli-testing": "tsc-watch --onSuccess \"npm i -g\"",
-	"docs": "typedoc --out docs/"
+	"docs": "typedoc --out docs/",
+	"push": "npm publish && git push"
   },
   "author": "insert",
   "license": "ISC",
   "dependencies": {
-    "@types/glob": "^7.1.1",
-    "@types/node": "^10.12.18",
     "chalk": "^2.4.2",
     "commander": "^2.19.0",
     "glob": "^7.1.3"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.1",
+    "@types/node": "^10.12.18"
   },
   "files": [
     "dist/",
@@ -28,7 +31,6 @@
   "directories": {
     "test": "test"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "https://gitlab.insrt.uk/insert/gnucc.git"

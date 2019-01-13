@@ -24,6 +24,7 @@ export default async function gpp(optOrInput: GPPOptions | string, output?: stri
 		output && args.push('-o', output);
 	} else {
 		args.push(...ProcessGppOpt(optOrInput));
+		log = optOrInput.log || false;
 	}
 
 	return await Run(args, log);
