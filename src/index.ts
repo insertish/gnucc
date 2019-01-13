@@ -2,6 +2,7 @@ import { gcc, gpp } from './compilers';
 import { GCCOptions, GPPOptions, OPTIMISATION, STAGES, WARN } from './Options';
 import { Result } from './Runner';
 import { resolve, sep } from 'path';
+import { sync as globSync } from 'glob';
 
 export * from './compilers';
 export {
@@ -40,6 +41,11 @@ export async function gnucc(optOrInput: GCCOptions | GPPOptions | string, output
 		if (optOrInput.project) {
 			if (!Array.isArray(inp)) throw new Error("Input must be array!");
 			if (!optOrInput.objOut) throw new Error("No output directory for objects!");
+
+			let globbed: string[] = [];
+			inp.forEach(x => globbed.push(...globSync(x)));
+			inp = globbed;
+
 			let objects = inp.map(x => resolve(<string> optOrInput.objOut, x.replace(/\\|\//g, '_') + '.o'));
 			
 			let compiler: Function = gnucc;
@@ -50,6 +56,7 @@ export async function gnucc(optOrInput: GCCOptions | GPPOptions | string, output
 
 			for (let i in inp) {
 				await compiler(Object.assign({}, optOrInput, {
+					project: false,
 					input: inp[i],
 					until: STAGES.COMPILE,
 					output: objects[i]
@@ -57,6 +64,7 @@ export async function gnucc(optOrInput: GCCOptions | GPPOptions | string, output
 			}
 
 			return await compiler(Object.assign(optOrInput, {
+				project: false,
 				input: objects
 			}));
 		}
@@ -72,3 +80,5 @@ export async function gnucc(optOrInput: GCCOptions | GPPOptions | string, output
 		}
 	}
 };
+
+export default gnucc;

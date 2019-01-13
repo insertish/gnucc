@@ -219,7 +219,7 @@ export interface CompilerOptions extends PreprocessorOptions {
 export interface ProjectOptions extends CompilerOptions {
 	/** Generate object files, keep track of timestamps and compile automatically. [objOut must be set!] */
 	project?: boolean,
-	/** Input file(s) */
+	/** Input file(s), if array all items are globbed */
 	input: string | string[],
 	/** Objects folder */
 	objOut?: string,
