@@ -202,6 +202,8 @@ export interface CompilerOptions extends PreprocessorOptions {
 	gprof?: boolean,
 	/** Makes compiler print out statistics and information about each function as it is compiled. */
 	logCompile?: boolean,
+	/** Any additional arguments */
+	args?: string[],
 
 	/** Does not use standard system libraries when linking */
 	noDefaultLibs?: boolean,
@@ -230,7 +232,9 @@ export interface ProjectOptions extends CompilerOptions {
 	/** Library directories to be included, -L */
 	libraries?: string[],
 	/** Output logs when compiling */
-	log?: boolean
+	log?: boolean,
+	/** Whether the config file extends another, useful for multi-project setups */
+	extends?: string
 };
 
 export interface GCCOptions extends ProjectOptions {

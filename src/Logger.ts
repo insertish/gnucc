@@ -12,6 +12,12 @@ export function LogOutput(output: string) {
 	);
 };
 
+export function LogAlert(output: string) {
+	console.log(
+		Trim(output).map(x => chalk.gray(`~ ${x}`)).join('\n')
+	);
+};
+
 export function LogError(error: string) {
 	console.log(
 		Trim(error).map(x => chalk.red(`! ${x}`)).join('\n')

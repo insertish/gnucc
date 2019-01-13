@@ -3,6 +3,8 @@ import { existsSync, writeFileSync, readFileSync } from 'fs';
 import chalk from 'chalk';
 import program from 'commander';
 import gnucc from '.';
+import { ProjectOptions } from './Options';
+import { resolve } from 'path';
 
 let { version } = require('../package.json');
 
@@ -23,11 +25,14 @@ if (program.init) {
 	console.log(chalk`{green Created configuration file!}`);
 } else {
 	if (existsSync('gnucc.json')) {
+		let config: ProjectOptions = JSON.parse(readFileSync('gnucc.json').toString());
+
 		let opt = Object.assign(
-			JSON.parse(readFileSync('gnucc.json').toString()),
+			config,
 			{ project: true, log: true }
 		);
-		gnucc(opt);
+
+		gnucc(opt).catch(err => console.log(chalk.red(err)));
 	} else {
 		console.error(chalk`{red Configuration file does not exist!}\n{gray Run {white gnucc --init} to generate one.}`);
 	}

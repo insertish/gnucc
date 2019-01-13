@@ -7,6 +7,7 @@ import { gcc, gpp } from './compilers';
 import { GCCOptions, GPPOptions, OPTIMISATION, STAGES, WARN } from './Options';
 import { Result } from './Runner';
 import { Resolve, Language } from './Extension';
+import { LogAlert } from './Logger';
 
 export * from './compilers';
 export {
@@ -60,7 +61,8 @@ export async function gnucc(optOrInput: GCCOptions | GPPOptions | string, output
 				if (existsSync(objects[i])) {
 					let is = statSync(inp[i]).mtimeMs;
 					let os = statSync(objects[i]).mtimeMs;
-					optOrInput.log && console.log(chalk`{gray ~ Skipping ${inp[i]}, object file is newer.}`);
+					optOrInput.log && LogAlert(`Skipping ${inp[i]}, object file is newer.`);
+					optOrInput.log && console.log(chalk.magenta('# Skipped file.'));
 					if (os > is) continue;
 				}
 
