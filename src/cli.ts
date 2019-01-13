@@ -13,7 +13,9 @@ program.version(version)
 if (program.init) {
 	writeFileSync('gnucc.json', JSON.stringify({
 		input: [
-			'src/*'
+			'src/**/*.cpp',
+			'src/**/*.cc',
+			'src/**/*.c'
 		],
 		objOut: 'build/obj',
 		output: 'build/bin'
