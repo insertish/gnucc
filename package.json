@@ -6,7 +6,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cli-testing": "tsc-watch --onSuccess \"npm i -g\""
+	"cli-testing": "tsc-watch --onSuccess \"npm i -g\"",
+	"docs": "typedoc --out docs/"
   },
   "author": "insert",
   "license": "ISC",
