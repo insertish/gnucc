@@ -204,7 +204,9 @@ export interface CompilerOptions extends PreprocessorOptions {
 	logCompile?: boolean,
 	/** Any additional arguments */
 	args?: string[],
+};
 
+export interface LinkerOptions extends CompilerOptions {
 	/** Does not use standard system libraries when linking */
 	noDefaultLibs?: boolean,
 	/** Does not use standard system startup files or libraries when linking */
@@ -215,10 +217,10 @@ export interface CompilerOptions extends PreprocessorOptions {
 	/** Use static libgcc? -static-libgcc */
 	staticLibGCC?: boolean,
 	/** Use static libstc++? -static-libstdc++ */
-	staticLibSTDcpp?: boolean
-};
+	staticSTDcpp?: boolean
+}
 
-export interface ProjectOptions extends CompilerOptions {
+export interface ProjectOptions extends LinkerOptions {
 	/** Generate object files, keep track of timestamps and compile automatically. [objOut must be set!] */
 	project?: boolean,
 	/** Input file(s), if array all items are globbed */
@@ -231,6 +233,8 @@ export interface ProjectOptions extends CompilerOptions {
 	includes?: string[],
 	/** Library directories to be included, -L */
 	libraries?: string[],
+	/** Link libraries, -l */
+	link?: string[],
 	/** Output logs when compiling */
 	log?: boolean,
 	/** Whether the config file extends another, useful for multi-project setups */

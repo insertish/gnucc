@@ -1,6 +1,6 @@
 {
   "name": "gnucc",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Wrapper for GCC and G++",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

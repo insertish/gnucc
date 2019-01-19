@@ -9,13 +9,27 @@ export function ProcessOpt(opts: ProjectOptions): string[] {
 	opts.output			&& args.push('-o', resolve(opts.output));
 	opts.includes		&& args.push(...opts.includes.map(x => `-I${resolve(x)}`));
 	opts.libraries		&& args.push(...opts.libraries.map(x => `-L${resolve(x)}`));
+	opts.link			&& args.push(...opts.link.map(x => `-l${resolve(x)}`));
+
+	// Pre-Processor
+	opts.macros			&& opts.macros.forEach(x => args.push(`-D${x.name}`, x.definition));
 
 	// Compiler
 	opts.optimisation	&& args.push(`-O${opts.optimisation}`);
 	opts.until			&& args.push(opts.until);
 	opts.warning		&& args.push(...opts.warning.map(x => `-W${x}`));
+	opts.usePipes		&& args.push('-pipe');
+	opts.prof			&& args.push('-p');
+	opts.gprof			&& args.push('-pg');
 	opts.logCompile		&& args.push('-Q');
 	opts.args			&& args.push(...opts.args);
+
+	// Linker
+	opts.noDefaultLibs	&& args.push('-nodefaultlibs');
+	opts.noStandardLib	&& args.push('-nostdlib');
+	opts.static			&& args.push('-static');
+	opts.staticLibGCC	&& args.push('-static-libgcc');
+	opts.staticSTDcpp	&& args.push('-static-libstdc++');
 
 	return args;
 }
