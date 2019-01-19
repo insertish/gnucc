@@ -1,5 +1,5 @@
 import { ProjectOptions, GCCOptions, GPPOptions } from "./Options";
-import { resolve } from "path";
+import { resolve } from 'path';
 
 export function ProcessOpt(opts: ProjectOptions): string[] {
 	let args = [];
@@ -12,7 +12,9 @@ export function ProcessOpt(opts: ProjectOptions): string[] {
 	opts.link			&& args.push(...opts.link.map(x => `-l${resolve(x)}`));
 
 	// Pre-Processor
-	opts.macros			&& opts.macros.forEach(x => args.push(`-D${x.name}`, x.definition));
+	opts.macros			&& opts.macros.forEach(x => 
+						   typeof x === 'string' ? args.push(`-D${x}`) :
+						   args.push(`-D${x.name}`, x.definition));
 
 	// Compiler
 	opts.optimisation	&& args.push(`-O${opts.optimisation}`);

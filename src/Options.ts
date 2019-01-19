@@ -178,10 +178,10 @@ export enum DEBUG {
 
 export interface PreprocessorOptions {
 	/** Defines macros */
-	macros?: {
+	macros?: ({
 		name: string,
 		definition?: string
-	}[]
+	} | string)[]
 }
 
 export interface CompilerOptions extends PreprocessorOptions {
@@ -236,9 +236,7 @@ export interface ProjectOptions extends LinkerOptions {
 	/** Link libraries, -l */
 	link?: string[],
 	/** Output logs when compiling */
-	log?: boolean,
-	/** Whether the config file extends another, useful for multi-project setups */
-	extends?: string
+	log?: boolean
 };
 
 export interface GCCOptions extends ProjectOptions {
