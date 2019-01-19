@@ -9,11 +9,11 @@ export function ProcessOpt(opts: ProjectOptions): string[] {
 	opts.output			&& args.push('-o', resolve(opts.output));
 	opts.includes		&& args.push(...opts.includes.map(x => `-I${resolve(x)}`));
 	opts.libraries		&& args.push(...opts.libraries.map(x => `-L${resolve(x)}`));
-	opts.link			&& args.push(...opts.link.map(x => `-l${resolve(x)}`));
+	opts.link			&& args.push(...opts.link.map(x => `-l${x}`));
 
 	// Pre-Processor
 	opts.macros			&& opts.macros.forEach(x => 
-						   typeof x === 'string' ? args.push(`-D${x}`) :
+						   (typeof x === 'string') ? args.push(`-D${x}`) :
 						   args.push(`-D${x.name}`, x.definition));
 
 	// Compiler
