@@ -49,7 +49,7 @@ export async function gnucc(optOrInput: GCCOptions | GPPOptions | string, output
 			inp.forEach(x => globbed.push(...globSync(x)));
 			inp = globbed;
 
-			let objects = inp.map(x => resolve(<string> optOrInput.objOut, x.replace(/\\|\//g, '_') + '.o'));
+			let objects = inp.map(x => resolve(<string> optOrInput.objOut, x.replace(/\\|\/|\:/g, '_').substring(2) + '.o'));
 			
 			let compiler: Function = gnucc;
 			inp.forEach(x => {
