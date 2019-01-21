@@ -204,6 +204,12 @@ export interface CompilerOptions extends PreprocessorOptions {
 	logCompile?: boolean,
 	/** Any additional arguments */
 	args?: string[],
+
+	/** Binaries to use */
+	binaries?: {
+		'gcc'?: string,
+		'g++'?: string
+	}
 };
 
 export interface LinkerOptions extends CompilerOptions {

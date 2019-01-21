@@ -17,15 +17,17 @@ export default async function gpp(opt: GPPOptions): Promise<Result>;
 
 export default async function gpp(optOrInput: GPPOptions | string, output?: string, log: boolean = true) {
 	let binary = 'g++';
-	let args: string[] = [binary];
+	let args: string[] = [];
 
 	if (typeof optOrInput === 'string') {
 		args.push(optOrInput);
 		output && args.push('-o', output);
 	} else {
+		if (optOrInput.binaries && optOrInput.binaries["g++"]) binary = optOrInput.binaries["g++"];
 		args.push(...ProcessGppOpt(optOrInput));
 		log = optOrInput.log || false;
 	}
 
+	args.unshift(binary);
 	return await Run(args, log);
 };

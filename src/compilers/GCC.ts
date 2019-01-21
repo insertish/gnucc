@@ -17,15 +17,17 @@ export default async function gcc(opt: GCCOptions): Promise<Result>;
 
 export default async function gcc(optOrInput: GCCOptions | string, output?: string, log: boolean = true) {
 	let binary = 'gcc';
-	let args: string[] = [binary];
+	let args: string[] = [];
 
 	if (typeof optOrInput === 'string') {
 		args.push(optOrInput);
 		output && args.push('-o', output);
 	} else {
+		if (optOrInput.binaries && optOrInput.binaries.gcc) binary = optOrInput.binaries.gcc;
 		args.push(...ProcessGccOpt(optOrInput));
 		log = optOrInput.log || false;
 	}
 
+	args.unshift(binary);
 	return await Run(args, log);
 };
