@@ -2,8 +2,10 @@
 
 > Node.js library for GCC and G++ compilers
 
-![](https://img.shields.io/npm/v/gnucc.svg)
-![](https://img.shields.io/npm/dt/gnucc.svg)
+[![](https://img.shields.io/npm/v/gnucc.svg?style=flat-square)](https://www.npmjs.com/package/gnucc)
+[![](https://img.shields.io/npm/dt/gnucc.svg?style=flat-square)](https://www.npmjs.com/package/gnucc)
+[![](https://img.shields.io/david/insertish/gnucc.svg?style=flat-square)](https://www.npmjs.com/package/gnucc)
+[![](https://img.shields.io/bundlephobia/minzip/gnucc.svg?style=flat-square)](https://www.npmjs.com/package/gnucc)
 
 - Simplified options and usage
 - Types and intellisense support
