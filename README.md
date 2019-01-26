@@ -2,6 +2,9 @@
 
 > Node.js library for GCC and G++ compilers
 
+![](https://img.shields.io/npm/v/gnucc.svg)
+![](https://img.shields.io/npm/dt/gnucc.svg)
+
 - Simplified options and usage
 - Types and intellisense support
 - Supports compilation of C and C++ files through `gcc` and `g++`
