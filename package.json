@@ -1,6 +1,6 @@
 {
   "name": "gnucc",
-  "version": "1.1.3",
+  "version": "1.1.5",
   "description": "Wrapper for GCC and G++",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -36,10 +36,12 @@
     "url": "https://gitlab.insrt.uk/insert/gnucc.git"
   },
   "keywords": [
+    "gnu",
     "gcc",
     "g++",
     "c++",
     "c",
-    "compiler"
+    "compiler",
+    "emscripten"
   ]
 }

@@ -1,6 +1,6 @@
 import Run, { Result } from '../Runner';
 import { GCCOptions } from '../Options';
-import { ProcessGccOpt } from '../Config';
+import { ProcessGccOpt, ProcessEnv } from '../Config';
 
 /**
  * Compiles a source file with GCC
@@ -18,16 +18,18 @@ export default async function gcc(opt: GCCOptions): Promise<Result>;
 export default async function gcc(optOrInput: GCCOptions | string, output?: string, log: boolean = true) {
 	let binary = 'gcc';
 	let args: string[] = [];
+	let env;
 
 	if (typeof optOrInput === 'string') {
 		args.push(optOrInput);
 		output && args.push('-o', output);
 	} else {
+		env = ProcessEnv(optOrInput);
 		if (optOrInput.binaries && optOrInput.binaries.gcc) binary = optOrInput.binaries.gcc;
 		args.push(...ProcessGccOpt(optOrInput));
 		log = optOrInput.log || false;
 	}
 
 	args.unshift(binary);
-	return await Run(args, log);
+	return await Run(args, log, env);
 };

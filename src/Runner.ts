@@ -8,7 +8,7 @@ export interface Result {
 	exitCode: Number
 };
 
-export default function Run(args: string[], log?: boolean): Promise<Result> {
+export default function Run(args: string[], log?: boolean, env?: NodeJS.ProcessEnv): Promise<Result> {
 	let command = args.join(' ');
 	log && LogOutput(command);
 	const proc = spawn(args.shift() || 'echo', args);

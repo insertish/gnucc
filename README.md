@@ -5,6 +5,7 @@
 - Simplified options and usage
 - Types and intellisense support
 - Supports compilation of C and C++ files through `gcc` and `g++`
+- Also can be easily used with emscripten.
 
 ## Quick Start
 
@@ -33,6 +34,10 @@ await gnucc({
   includes: [
     'src/headers'
   ],
+  binaries: {
+    "gcc": 'gcc',
+    "g++": 'g++'
+  },
   optimisation: OPTIMISATION.HIGH,
   warning: [WARN.ALL]
 });

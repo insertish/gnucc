@@ -242,7 +242,11 @@ export interface ProjectOptions extends LinkerOptions {
 	/** Link libraries, -l */
 	link?: string[],
 	/** Output logs when compiling */
-	log?: boolean
+	log?: boolean,
+	/** Environment variables to attach */
+	env?: NodeJS.ProcessEnv,
+	/** PATH paths to prepend */
+	path?: string[]
 };
 
 export interface GCCOptions extends ProjectOptions {

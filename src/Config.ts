@@ -55,3 +55,17 @@ export function ProcessGppOpt(opts: GPPOptions): string[] {
 
 	return args;
 }
+
+export function ProcessEnv(opts: ProjectOptions): NodeJS.ProcessEnv {
+	let env = process.env;
+
+	if (opts.env) {
+		Object.assign(env, opts.env);
+	}
+
+	if (opts.path) {
+		opts.path.forEach(x => env['PATH'] = x + ';' + env['PATH']);
+	}
+
+	return env;
+}

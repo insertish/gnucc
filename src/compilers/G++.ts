@@ -1,6 +1,6 @@
 import Run, { Result } from '../Runner';
 import { GPPOptions } from '../Options';
-import { ProcessGppOpt } from '../Config';
+import { ProcessGppOpt, ProcessEnv } from '../Config';
 
 /**
  * Compiles a source file with G++
@@ -18,16 +18,18 @@ export default async function gpp(opt: GPPOptions): Promise<Result>;
 export default async function gpp(optOrInput: GPPOptions | string, output?: string, log: boolean = true) {
 	let binary = 'g++';
 	let args: string[] = [];
+	let env;
 
 	if (typeof optOrInput === 'string') {
 		args.push(optOrInput);
 		output && args.push('-o', output);
 	} else {
+		env = ProcessEnv(optOrInput);
 		if (optOrInput.binaries && optOrInput.binaries["g++"]) binary = optOrInput.binaries["g++"];
 		args.push(...ProcessGppOpt(optOrInput));
 		log = optOrInput.log || false;
 	}
 
 	args.unshift(binary);
-	return await Run(args, log);
+	return await Run(args, log, env);
 };
